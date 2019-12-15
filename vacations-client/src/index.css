@@ -1,0 +1,26 @@
+html{
+  min-height: 100%;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: url(/img/1491581269755.jpeg) no-repeat;
+  background-size: 100%;
+  background-position: bottom;
+  min-height: 100%;
+}
+
+form{
+  padding: 20px;
+  margin-top: 100px;
+
+}
+
+form button, form h5{
+  margin: 20px 0;
+}
+
+.transparentBG {
+  background-color: rgba(0,0,0,0);
+}
