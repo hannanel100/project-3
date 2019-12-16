@@ -1,0 +1,20 @@
+{
+  "name": "project-3",
+  "version": "1.0.0",
+  "description": "vacation tagging",
+  "main": "index.js",
+  "proxy": "http://localhost:5000/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hannanel100/project-3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hannanel100/project-3/issues"
+  },
+  "homepage": "https://github.com/hannanel100/project-3#readme"
+}
