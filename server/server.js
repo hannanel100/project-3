@@ -19,7 +19,14 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const basicAuth = require('express-basic-auth');
 
+const auth = basicAuth({
+  users: {
+    admin: '123',
+    user: '456',
+  },
+});
 const PORT = process.env.PORT || 5000;
 
 app
@@ -28,4 +35,11 @@ app
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/vacations-client/build/index.html'));
+});
+app.get('/authenticate', auth, (req, res) => {
+  if (req.auth.user === 'admin') {
+    res.send('admin');
+  } else if (req.auth.user === 'user') {
+    res.send('user');
+  }
 });
