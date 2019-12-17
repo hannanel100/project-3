@@ -1,25 +1,19 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const path = require('path');
-// const usersBl = require('./usersBL');
-// const vacationBl = require('./vacationBL');
-// const app = express();
-
-// const PORT = 3201;
-// const cors = require('cors');
-
-// app.use(cors());
-// app.use(express.static(path.join(__dirname, 'client')));
-// app.use(bodyParser.json());
-
-
-// app.listen(process.env.PORT || PORT, () =>
-//     console.log(`Example app listening on port ${process.env.PORT || PORT}!`),
-// );
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
+const cookieParser = require('cookie-parser');
 const basicAuth = require('express-basic-auth');
+const cors = require('cors');
+const usersBl = require('./usersBL');
+const vacationBl = require('./vacationBL');
+const app = express();
+
+
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(cookieParser('82e4e438a0705fabf61f9854e3b575af'));
+
 
 const auth = basicAuth({
   users: {
@@ -27,7 +21,7 @@ const auth = basicAuth({
     user: '456',
   },
 });
-const PORT = process.env.PORT || 5000;
+
 
 app
   .use(express.static(path.join(__dirname, '/client/build')))
@@ -37,9 +31,38 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/vacations-client/build/index.html'));
 });
 app.get('/authenticate', auth, (req, res) => {
+  const options = {
+    httpOnly: true,
+    signed: true,
+  };
+
   if (req.auth.user === 'admin') {
-    res.send('admin');
+    res.cookie('name', 'admin', options).send({ screen: 'admin' });
   } else if (req.auth.user === 'user') {
-    res.send('user');
+    res.cookie('name', 'user', options).send({ screen: 'user' });
+  }
+});
+app.get('/read-cookie', (req, res) => {
+  console.log(req.signedCookies);
+  if (req.signedCookies.name === 'admin') {
+    res.send({ screen: 'admin' });
+  } else if (req.signedCookies.name === 'user') {
+    res.send({ screen: 'user' });
+  } else {
+    res.send({ screen: 'auth' });
+  }
+});
+
+app.get('/clear-cookie', (req, res) => {
+  res.clearCookie('name').end();
+});
+
+app.get('/get-data', (req, res) => {
+  if (req.signedCookies.name === 'admin') {
+    res.send('This is admin panel');
+  } else if (req.signedCookies.name === 'user') {
+    res.send('This is user data');
+  } else {
+    res.end();
   }
 });

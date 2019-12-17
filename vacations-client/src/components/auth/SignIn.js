@@ -14,20 +14,25 @@ class SignIn extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
         const auth = async () => {
             try {
-                const res = await axios.get('/authenticate', { auth: { username: 'admin', password: '123' } });
+                const res = await axios.get('http://localhost:5000/authenticate', {
+                    auth: {
+                        username: this.state.userName,
+                        password: this.state.password
+                    }
+                });
                 console.log(res.data);
+                if (res.data === 'admin') {
+
+                }
             } catch (e) {
                 console.log(e);
             }
         };
+        auth();
     }
-    handleSignUp = (e) => {
-        console.log("clicked sign up");
 
-    }
     render() {
         return (
             <div className="container">
@@ -49,7 +54,9 @@ class SignIn extends Component {
 
                     <div className="input-field center">
                         <span className="white-text text-darken-3">New User?</span>
-                        <button className="btn #4dd0e1 cyan lighten-2 z-depth-0" id="signUpBtn" onClick={this.handleSignUp}>Sign Up</button>
+                        <a href="/signup">
+                            <button className="btn #4dd0e1 cyan lighten-2 z-depth-0" id="signUpBtn" >Sign Up</button>
+                        </a>
                     </div>
                 </div>
 
