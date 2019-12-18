@@ -37,11 +37,12 @@ class Vacations extends Component {
         "dates": "1/1/20-5/1/20"
     }]
     render() {
-        let vacationsToRender = [];
+        let vacationsToRender = this.vacations.map(item => <SingleVacation vacation={item} key={item.index} />);
 
-        for (let i = 0; i < this.vacations.length; i++) {
-            vacationsToRender.push(<SingleVacation vacation={this.vacations[i]} />)
-        }
+        // for (let i = 0; i < this.vacations.length; i++) {
+        //     vacationsToRender.push(<SingleVacation vacation={this.vacations[i]} />)
+        // }
+
         return (
             <div>
                 {vacationsToRender}
