@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import SignIn from './components/auth/SignIn';
+import SignIn from './containers/SignIn';
 import './App.css';
-import SignUp from './components/auth/SignUp';
+import SignUp from './containers/SignUp';
 import Navbar from './components/layout/Navbar';
-import LogOut from './components/auth/LogOut';
-import Vacations from './components/vacations/Vacations';
-
+import LogOut from './containers/LogOut';
+import Vacations from './containers/Vacations';
+import Home from './containers/Home'
 class App extends Component {
+
   render() {
     console.log(this.props)
     return (
@@ -17,10 +18,13 @@ class App extends Component {
         <div className="App">
           <Navbar siteName={this.props.siteName} />
           <Switch>
+            <Route path='/' exact component={Home} />
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
             <Route path='/logout' component={LogOut} />
-            <Route path='/vacations' component={Vacations} />
+            {/* TODO: change to specific ID of user */}
+            <Route path='/vacations/:userID' component={Vacations} />
+
           </Switch>
         </div>
       </BrowserRouter >

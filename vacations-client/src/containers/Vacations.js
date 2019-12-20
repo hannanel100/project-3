@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import SingleVacation from './SingleVacation'
-
+import SingleVacation from '../components/vacations/SingleVacation'
+import { connect } from 'react-redux'
+//TODO: allow vacation to accept single user ID
 class Vacations extends Component {
     state = {
         vacations: []
@@ -50,5 +51,15 @@ class Vacations extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        siteName: state.siteName
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
 
-export default Vacations
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vacations);
