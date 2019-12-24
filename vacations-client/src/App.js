@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { changeSiteName } from './actions/siteActions'
 import SignIn from './containers/SignIn';
 import './App.css';
 import SignUp from './containers/SignUp';
@@ -11,7 +12,7 @@ import Home from './containers/Home'
 class App extends Component {
 
   render() {
-    console.log(this.props)
+
     return (
 
       <BrowserRouter>
@@ -35,16 +36,13 @@ class App extends Component {
 }
 const mapStateToProps = state => {
   return {
-    siteName: state.siteName
+    siteName: state.siteReducers.siteName
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     changeSiteName(newSiteName) {
-      dispatch({
-        type: "CHANGE_SITE_NAME",
-        payload: newSiteName
-      })
+      dispatch(changeSiteName(newSiteName))
 
     }
   }

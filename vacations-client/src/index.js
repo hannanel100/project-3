@@ -3,20 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
+import store from './store'
 import { Provider } from 'react-redux';
-const initState = {
-    siteName: "Vacations Tagger"
-}
-const reducer = (state = initState, action) => {
-    switch (action.type) {
-        case "CHANGE_SITE_NAME":
-            state = { ...state, siteName: action.payload }
-            break;
-    }
-    return state
-}
-const store = createStore(reducer);
+
+
 
 ReactDOM.render(
     <Provider store={store}>

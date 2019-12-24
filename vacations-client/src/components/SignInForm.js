@@ -21,7 +21,7 @@ class SignInForm extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-
+        this.props.handlerLogin(this.state.user.userName, this.state.user.password)
         const auth = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/authenticate', {

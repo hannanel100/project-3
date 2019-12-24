@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SignInForm from '../components/SignInForm';
-
+import { loginAction } from '../actions/userActions';
 class SignIn extends Component {
 
 
+    handlerLogin = (userName, password) => {
+        this.props.login(userName, password);
+    }
 
     render() {
         return (
             <div className="container">
-                <SignInForm />
+                <SignInForm handlerLogin={this.handlerLogin} />
                 <div>
 
                     <div className="input-field center">
@@ -28,12 +31,14 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
     return {
-        siteName: state.siteName
+
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-
+        login: (userName, password) => {
+            dispatch(loginAction(userName, password));
+        }
     }
 }
 

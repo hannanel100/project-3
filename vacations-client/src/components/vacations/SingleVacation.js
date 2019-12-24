@@ -39,7 +39,6 @@ const useStyles = makeStyles(theme => ({
 export default function SingleVacation(props) {
     const classes = useStyles();
 
-    console.log(props)
 
     return (
         <Card className={classes.card}>
