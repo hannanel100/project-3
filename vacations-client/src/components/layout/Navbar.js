@@ -16,7 +16,6 @@ const Navbar = props => {
           {props.siteName}{" "}
         </Link>
         <SignedInLinks handlerLogout={handlerLogout} />
-        <SignedOutLinks />
       </div>
     </nav>
   );

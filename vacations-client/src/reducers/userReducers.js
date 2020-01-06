@@ -8,6 +8,9 @@ const userReducers = (state = initState, action) => {
       window.localStorage.setItem("token", action.token);
       state = { ...state, isLogged: action.payload };
       break;
+    case "SIGNUP":
+
+      break;
     default:
       break;
   }

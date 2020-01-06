@@ -22,11 +22,12 @@ class SignUpForm extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
+        this.props.handlerSignUp(this.state.newUser);
     }
     render() {
         return (
 
-            <form onSubmit={this.props.handleSubmit} className="transparentBG">
+            <form onSubmit={this.handleSubmit} className="transparentBG">
                 <h5 className="white-text text-darken-3">Sign Up</h5>
                 <div className="input-field">
                     <label htmlFor="firstName" className="white-text text-darken-3">First Name</label>
