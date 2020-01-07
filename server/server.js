@@ -110,3 +110,13 @@ app.post("/signUp", function (req, res) {
 
 
 })
+
+app.get('/vacations', (req, res) => {
+  vacationBl.getVacations((e, data) => {
+    if (e) {
+      return res.status(500).send();
+    } else {
+      return res.send(data);
+    }
+  })
+});

@@ -1,48 +1,30 @@
 import React, { Component } from 'react'
 import SingleVacation from '../components/vacations/SingleVacation'
-import { connect } from 'react-redux'
+
 //TODO: allow vacation to accept single user ID
 class Vacations extends Component {
     state = {
         vacations: []
     }
-
-    vacations = [{
-        "description": "The Maldives",
-        "price": "700",
-        "picture": "some-link",
-        "dates": "1/1/20-5/1/20"
-    },
-    {
-        "description": "Cuba",
-        "price": "400",
-        "picture": "some-link",
-        "dates": "1/1/20-5/1/20"
-    },
-    {
-        "description": "Australia",
-        "price": "1500",
-        "picture": "some-link",
-        "dates": "1/1/20-5/1/20"
-    },
-    {
-        "description": "USA",
-        "price": "1000",
-        "picture": "some-link",
-        "dates": "1/1/20-5/1/20"
-    },
-    {
-        "description": "The Alpes",
-        "price": "500",
-        "picture": "some-link",
-        "dates": "1/1/20-5/1/20"
-    }]
+    async componentDidMount() {
+        const response = await fetch("http://localhost:5000/vacations", {
+            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+            },
+            Accept: "application/json",
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer" // no-referrer, *client
+            // body data type must match "Content-Type" header
+        });
+        const vacationsFromFetch = await response.json();
+        this.setState({ vacations: vacationsFromFetch });
+    }
     render() {
-        let vacationsToRender = this.vacations.map(item => <SingleVacation vacation={item} key={item.index} />);
-
-        // for (let i = 0; i < this.vacations.length; i++) {
-        //     vacationsToRender.push(<SingleVacation vacation={this.vacations[i]} />)
-        // }
+        let vacationsToRender = this.state.vacations.map((item, index) => <SingleVacation vacation={item} key={index} />);
 
         return (
             <div>
@@ -51,15 +33,6 @@ class Vacations extends Component {
         )
     }
 }
-const mapStateToProps = state => {
-    return {
-        siteName: state.siteName
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
 
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Vacations);
+export default Vacations;

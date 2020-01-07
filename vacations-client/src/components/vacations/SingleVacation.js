@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -34,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         backgroundColor: red[500],
     },
+    center: {
+        margin: 'auto'
+    }
 }));
 
 export default function SingleVacation(props) {
@@ -48,25 +50,22 @@ export default function SingleVacation(props) {
             />
             <CardMedia
                 className={classes.media}
-                image="/static/images/cards/paella.jpg"
-                title="Paella dish"
+                image={props.vacation.picture}
+                title={props.vacation.picture}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-
+                    price: {props.vacation.price} <br></br>
+                    dates: {props.vacation.dates}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
+                {/* TODO: add onClick functionality */}
+                <IconButton aria-label="add to favorites" >
                     <FavoriteIcon />
                 </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-
-
             </CardActions>
 
-        </Card>
+        </Card >
     );
 }

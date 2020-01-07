@@ -7,7 +7,7 @@ const _connection = mysql.createConnection({
 });
 
 function readOne(query, callback) {
-  _connection.query(query, function(error, results, fields) {
+  _connection.query(query, function (error, results, fields) {
     if (error) {
       callback("query error" + error, null);
     } else {
@@ -16,7 +16,7 @@ function readOne(query, callback) {
   });
 }
 function readAll(query, callback) {
-  _connection.query(query, function(error, results, fields) {
+  _connection.query(query, function (error, results, fields) {
     if (error) {
       console.log("query error");
       callback("query error" + error);
@@ -26,7 +26,7 @@ function readAll(query, callback) {
   });
 }
 function deleteOne(query, callback) {
-  _connection.query(query, function(error, results, fields) {
+  _connection.query(query, function (error, results, fields) {
     if (error) {
       callback("query error" + error, null);
     } else {
@@ -35,7 +35,7 @@ function deleteOne(query, callback) {
   });
 }
 function addOne(query, callback) {
-  _connection.query(query, function(error, results, fields) {
+  _connection.query(query, function (error, results, fields) {
     if (error) {
       callback("query error" + error, null);
     } else {
