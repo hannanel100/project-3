@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import SingleVacation from '../components/vacations/SingleVacation'
 import { connect } from 'react-redux';
-import { likeAction } from '../actions/userActions';
+import { likeAction, unLikeAction } from '../actions/userActions';
 //TODO: allow vacation to accept single user ID
 class Vacations extends Component {
     state = {
         vacations: [],
         userId: null
     }
+
     likeHandler = (user, vacation) => {
+        if (this.props.liked.includes(vacation)) {
+            this.props.unLike(user, vacation)
+        }
+        else {
+            this.props.like(user, vacation);
+        }
         console.log(user, vacation)
-        this.props.like(user, vacation);
+
+
 
     }
     async componentDidMount() {
@@ -45,17 +53,20 @@ class Vacations extends Component {
 const mapStateToProps = state => {
 
     return {
-        userId: state.userReducers.userId
+        userId: state.userReducers.userId,
+        liked: state.userReducers.liked
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         like: (user, vacation) => {
             dispatch(likeAction(user, vacation))
+        },
+        unLike: (user, vacation) => {
+            dispatch(unLikeAction(user, vacation))
         }
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Vacations);
 
 

@@ -120,10 +120,31 @@ app.get('/vacations', (req, res) => {
     }
   })
 });
+app.get('/vacation/:', (req, res) => {
+  vacationBl.getLikeId((e, data) => {
+    if (e) {
+      return res.status(500).send();
+    } else {
+      return res.send(data);
+    }
+  })
+});
 app.post('/vacations/like', (req, res) => {
   const { userId, vacation } = req.body;
   console.log(req.body)
   vacationBl.likeVacation(userId, vacation, (e, data) => {
+    if (e) {
+      return res.status(500).send();
+    } else {
+      return res.send(data);
+    }
+  })
+});
+
+app.delete('/vacations/unLike/:id', (req, res) => {
+  const { userId, vacation } = req.body;
+  console.log(req.body)
+  vacationBl.unLikeVacation(userId, vacation, (e, data) => {
     if (e) {
       return res.status(500).send();
     } else {

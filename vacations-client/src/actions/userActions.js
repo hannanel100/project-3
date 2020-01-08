@@ -92,13 +92,35 @@ export const likeAction = (userId, vacation) => {
         vacation
       })
     }
-    console.log(options)
     const response = await fetchData(URL, options);
-
     return dispatch({
       type: "LIKE",
       payload: {
         userId,
+        vacation
+      }
+    })
+  }
+}
+export const unLikeAction = (userId, vacation) => {
+  return async dispatch => {
+    const URL = `http://localhost:5000/vacations/unLike/${vacation}`;
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: {
+        userId,
+        vacation
+      }
+    }
+
+    const response = await fetchData(URL, options);
+    console.log(response)
+    return dispatch({
+      type: "UNLIKE",
+      payload: {
         vacation
       }
     })

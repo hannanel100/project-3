@@ -13,8 +13,17 @@ const userReducers = (state = initState, action) => {
       //TODO: need something here
       break;
     case "LIKE":
-      state = { ...state, liked: action.payload.vacation }
+      let newLiked = state.liked;
+      newLiked.push(action.payload.vacation)
+      state = { ...state, liked: newLiked }
       console.log(state);
+      break;
+    case "UNLIKE":
+      newLiked = state.liked;
+      const userId = action.payload.userId;
+      const vacation = action.payload.vacation;
+      newLiked.filter((item) => item == vacation);
+      state = { ...state, newLiked };
       break;
     default:
       break;
