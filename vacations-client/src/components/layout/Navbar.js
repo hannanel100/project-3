@@ -21,7 +21,7 @@ const Navbar = props => {
 };
 const mapStateToProps = state => {
   return {
-    siteName: state.siteReducers.siteName
+
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import SingleVacation from '../components/vacations/SingleVacation'
-
+import { connect } from 'react-redux';
+import { likeAction } from '../actions/userActions';
 //TODO: allow vacation to accept single user ID
 class Vacations extends Component {
     state = {
-        vacations: []
+        vacations: [],
+        userId: null
+    }
+    likeHandler = (user, vacation) => {
+        console.log(user, vacation)
+        this.props.like(user, vacation);
+
     }
     async componentDidMount() {
         const response = await fetch("http://localhost:5000/vacations", {
@@ -23,8 +30,9 @@ class Vacations extends Component {
         const vacationsFromFetch = await response.json();
         this.setState({ vacations: vacationsFromFetch });
     }
+
     render() {
-        let vacationsToRender = this.state.vacations.map((item, index) => <SingleVacation vacation={item} key={index} />);
+        let vacationsToRender = this.state.vacations.map((item, index) => <SingleVacation vacation={item} key={index} likeHandler={this.likeHandler} />);
 
         return (
             <div>
@@ -34,5 +42,20 @@ class Vacations extends Component {
     }
 }
 
+const mapStateToProps = state => {
 
-export default Vacations;
+    return {
+        userId: state.userReducers.userId
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        like: (user, vacation) => {
+            dispatch(likeAction(user, vacation))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vacations);
+
+

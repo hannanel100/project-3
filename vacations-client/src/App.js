@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar siteName={this.props.siteName} />
+          <Navbar siteName={"vacation tagger"} />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signin" component={SignIn} />
@@ -33,7 +33,7 @@ class App extends Component {
 }
 const mapStateToProps = state => {
   return {
-    siteName: state.siteReducers.siteName
+
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import { connect } from 'react-redux';
 
 
 const useStyles = makeStyles(theme => ({
@@ -38,9 +38,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function SingleVacation(props) {
+function SingleVacation(props) {
     const classes = useStyles();
-
+    const vacationId = props.vacation.id;
+    const userId = props.userId;
 
     return (
         <Card className={classes.card}>
@@ -60,8 +61,9 @@ export default function SingleVacation(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                {/* TODO: add onClick functionality */}
-                <IconButton aria-label="add to favorites" >
+                <IconButton id={props.vacation.id} aria-label="add to favorites" onClick={() => {
+                    props.likeHandler(userId, vacationId)
+                }}>
                     <FavoriteIcon />
                 </IconButton>
             </CardActions>
@@ -69,3 +71,11 @@ export default function SingleVacation(props) {
         </Card >
     );
 }
+
+const mapStateToProps = state => {
+
+    return {
+        userId: state.userReducers.userId
+    }
+}
+export default connect(mapStateToProps)(SingleVacation)

@@ -62,7 +62,6 @@ app.post("/authenticate", function (req, res) {
     res.status(403).send();
   } else {
     usersBl.getUser(user, pass, (e, data) => {
-
       if (e) {
         res.status(403).send();
       }
@@ -72,6 +71,7 @@ app.post("/authenticate", function (req, res) {
       }
       else {
         //regular user
+        const userId = data.id;
         const token = jwt.sign(
           {
             user: user
@@ -85,7 +85,7 @@ app.post("/authenticate", function (req, res) {
         //   httpOnly: true,
         //   signed: true
         // };
-        res.send(token);
+        res.send({ token, userId });
       }
     });
 
@@ -113,6 +113,17 @@ app.post("/signUp", function (req, res) {
 
 app.get('/vacations', (req, res) => {
   vacationBl.getVacations((e, data) => {
+    if (e) {
+      return res.status(500).send();
+    } else {
+      return res.send(data);
+    }
+  })
+});
+app.post('/vacations/like', (req, res) => {
+  const { userId, vacation } = req.body;
+  console.log(req.body)
+  vacationBl.likeVacation(userId, vacation, (e, data) => {
     if (e) {
       return res.status(500).send();
     } else {
