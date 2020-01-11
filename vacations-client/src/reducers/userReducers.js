@@ -19,11 +19,13 @@ const userReducers = (state = initState, action) => {
       console.log(state);
       break;
     case "UNLIKE":
-      newLiked = state.liked;
+      let newLikedArr = state.liked;
       const userId = action.payload.userId;
       const vacation = action.payload.vacation;
-      newLiked.filter((item) => item == vacation);
-      state = { ...state, newLiked };
+      newLikedArr = newLikedArr.filter((item) => item != vacation);
+      console.log(newLikedArr)
+      state = { ...state, liked: newLikedArr };
+      console.log(state)
       break;
     default:
       break;

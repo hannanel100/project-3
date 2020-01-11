@@ -42,8 +42,13 @@ function SingleVacation(props) {
     const classes = useStyles();
     const vacationId = props.vacation.id;
     const userId = props.userId;
-
+    let color = "default";
+    if (props.isLiked === true) {
+        color = "secondary"
+    }
+    console.log(props)
     return (
+
         <Card className={classes.card}>
             <CardHeader
                 title={props.vacation.description}
@@ -61,7 +66,7 @@ function SingleVacation(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton id={props.vacation.id} aria-label="add to favorites" onClick={() => {
+                <IconButton className={classes.center} color={color} id={props.vacation.id} aria-label="add to favorites" onClick={() => {
                     props.likeHandler(userId, vacationId)
                 }}>
                     <FavoriteIcon />

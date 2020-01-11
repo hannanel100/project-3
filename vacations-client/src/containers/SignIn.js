@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import SignInForm from "../components/SignInForm";
 import { loginAction } from "../actions/userActions";
 class SignIn extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.isLogged === true) {
       this.props.history.push("/");
     }

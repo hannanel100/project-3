@@ -110,17 +110,17 @@ export const unLikeAction = (userId, vacation) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: {
+      body: JSON.stringify({
         userId,
         vacation
-      }
+      })
     }
 
     const response = await fetchData(URL, options);
-    console.log(response)
     return dispatch({
       type: "UNLIKE",
       payload: {
+        userId,
         vacation
       }
     })

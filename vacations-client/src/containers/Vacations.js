@@ -6,21 +6,30 @@ import { likeAction, unLikeAction } from '../actions/userActions';
 class Vacations extends Component {
     state = {
         vacations: [],
-        userId: null
+        userId: null,
+        color: 'default',
     }
 
     likeHandler = (user, vacation) => {
+        let liked = this.state.vacations;
         if (this.props.liked.includes(vacation)) {
-            this.props.unLike(user, vacation)
+            this.props.unLike(user, vacation);
+            const unLikedIdx = liked.findIndex(item => item.vacation.id == vacation);
+            liked[unLikedIdx].isLiked = false;
+            this.setState({ vacations: liked });
+            const unLikeColor = 'default';
+            this.setState({ color: unLikeColor });
         }
         else {
             this.props.like(user, vacation);
+            const likeIdx = liked.findIndex(item => item.vacation.id == vacation);
+            liked[likeIdx].isLiked = true;
+            this.setState({ vacations: liked });
+            const likeColor = 'secondary';
+            this.setState({ color: likeColor });
         }
-        console.log(user, vacation)
-
-
-
     }
+
     async componentDidMount() {
         const response = await fetch("http://localhost:5000/vacations", {
             method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -35,12 +44,25 @@ class Vacations extends Component {
             referrer: "no-referrer" // no-referrer, *client
             // body data type must match "Content-Type" header
         });
+
         const vacationsFromFetch = await response.json();
-        this.setState({ vacations: vacationsFromFetch });
+        let vacations = [];
+        vacationsFromFetch.forEach(element => {
+            const obj = {
+                "vacation": element,
+                "isLiked": false
+
+            };
+            vacations.push(obj);
+        });
+        this.setState({ vacations: vacations });
+
     }
 
     render() {
-        let vacationsToRender = this.state.vacations.map((item, index) => <SingleVacation vacation={item} key={index} likeHandler={this.likeHandler} />);
+        let vacationsToRender = this.state.vacations.map((item, index) => {
+            return <SingleVacation vacation={item.vacation} isLiked={item.isLiked} key={index} likeHandler={this.likeHandler} color={this.state.color} />
+        });
 
         return (
             <div>

@@ -4,22 +4,11 @@ const TABLE = 'vacations';
 
 function getVacations(callback) {
     const query = "SELECT * FROM vacations";
-    dal.readAll(query, (e, allcars) => {
+    dal.readAll(query, (e, allVacations) => {
         if (e) {
             callback(e);
         } else {
-            callback(null, allcars);
-        }
-    })
-}
-
-function getLikeId(callback) {
-    const query = "SELECT * FROM vacations";
-    dal.readAll(query, (e, allcars) => {
-        if (e) {
-            callback(e);
-        } else {
-            callback(null, allcars);
+            callback(null, allVacations);
         }
     })
 }
@@ -48,4 +37,4 @@ function unLikeVacation(userId, vacation, callback) {
 }
 module.exports.getVacations = getVacations;
 module.exports.likeVacation = likeVacation;
-module.exports.unLikeVaction = unLikeVacation;
+module.exports.unLikeVacation = unLikeVacation;
